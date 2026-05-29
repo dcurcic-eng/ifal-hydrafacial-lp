@@ -95,58 +95,60 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 .btn-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0;
-  padding: 0 2px 0 32px;
-  border-radius: 68px;
-  border: 1px solid transparent;
+  gap: 14px;
+  padding: 6px 6px 6px 28px;
+  border-radius: 999px;
   background: var(--gold);
   color: var(--primary);
   font-family: var(--font-sans);
   font-size: 15px;
   font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  border: 1px solid transparent;
   position: relative;
-  overflow: hidden;
   isolation: isolate;
-  transition: color 0.3s ease-out, border-color 0.3s ease-out;
+  overflow: hidden;
+  transition: color 0.35s ease, border-color 0.35s ease;
 }
 .btn-pill::after {
   content: "";
   position: absolute;
-  top: 4px;
-  bottom: 4px;
-  right: 4px;
-  width: 54px;
-  border-radius: 100px;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--primary);
-  transition: width 0.4s ease;
   z-index: 1;
   pointer-events: none;
+  transition: width 0.45s ease, border-radius 0.45s ease;
 }
-.btn-pill:hover::after { width: calc(100% - 8px); }
-.btn-pill:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
+.btn-pill:hover { color: var(--gold); border-color: var(--gold); }
+.btn-pill:hover::after { width: calc(100% - 12px); border-radius: 999px; }
 .btn-pill .btn-label {
-  padding-right: 24px;
   position: relative;
   z-index: 2;
+  white-space: nowrap;
 }
 .btn-pill .btn-icon {
-  width: 54px; height: 54px;
-  border-radius: 50%;
+  width: 48px;
+  height: 48px;
   color: var(--gold);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   position: relative;
   z-index: 2;
 }
-.btn-pill.sm { padding: 0 2px 0 28px; font-size: 14px; }
-.btn-pill.sm .btn-label { padding-right: 18px; }
-.btn-pill.sm .btn-icon { width: 44px; height: 44px; }
-.btn-pill.sm::after { width: 44px; }
-.btn-pill.sm:hover::after { width: calc(100% - 8px); }
+.btn-pill .btn-icon .icon { width: 18px; height: 18px; }
+
+.btn-pill.sm { font-size: 14px; padding: 4px 4px 4px 22px; gap: 12px; }
+.btn-pill.sm::after { width: 40px; height: 40px; right: 4px; }
+.btn-pill.sm:hover::after { width: calc(100% - 8px); border-radius: 999px; }
+.btn-pill.sm .btn-icon { width: 40px; height: 40px; }
 
 /* Light variant (works on dark backgrounds) */
 .btn-pill.btn-pill-light {
@@ -187,7 +189,8 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  height: 880px;
+  display: flex;
+  flex-direction: column;
   background: var(--primary);
   overflow: hidden;
 }
@@ -208,28 +211,26 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
 }
 .hero-inner {
   position: relative; z-index: 2;
-  height: 100%;
-  padding: 0 80px;
+  flex: 1 1 auto;
+  padding: 116px 80px 0;
   display: flex;
   flex-direction: column;
 }
 
 /* Nav */
 .nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 116px;
   padding: 0 80px;
-  margin: 0 -80px;
+  background: transparent;
   transition: background var(--t-state), backdrop-filter var(--t-state), box-shadow var(--t-state);
 }
 .nav.is-sticky {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 200;
-  padding: 0 80px;
-  margin: 0;
   background: rgba(31,31,31,0.94);
   backdrop-filter: saturate(140%) blur(8px);
   box-shadow: 0 1px 0 rgba(255,255,255,0.06);
@@ -265,7 +266,7 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   display: flex;
   flex-direction: column;
   gap: 24px;
-  max-width: 50%;
+  max-width: 60%;
 }
 .hero-eyebrow {
   display: flex; align-items: center; gap: 14px;
@@ -285,9 +286,9 @@ button { font-family: inherit; cursor: pointer; border: 0; background: none; }
   margin: 0;
 }
 .hero-title-1 { color: var(--white); line-height: 0.9; }
-.hero-title-2 { color: var(--gold); font-style: italic; }
+.hero-title-2 { color: var(--gold); font-style: italic; display: block; margin-top: 8px; }
 .hero-bottom {
-  margin-top: auto;
+  margin-top: 120px;
   margin-bottom: 80px;
   display: flex;
   align-items: center;
@@ -1119,6 +1120,94 @@ a.info-val:hover { color: var(--gold); }
 .form-field textarea:focus { border-color: var(--gold); background: #FBFAF6; }
 .form .btn-pill { align-self: flex-start; }
 
+/* Benefit form (Aeva contact form) */
+.benefit-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding-top: 24px;
+}
+.benefit-form__field { display: flex; flex-direction: column; gap: 8px; }
+.benefit-form__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--primary);
+}
+.benefit-form__input {
+  background: var(--cream);
+  border: 1px solid transparent;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--primary);
+  transition: border-color var(--t-state), background var(--t-state);
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+.benefit-form__input::placeholder { color: var(--primary-60); }
+.benefit-form__input:focus { border-color: var(--gold); background: #FBFAF6; }
+.benefit-form__field--full { grid-column: 1 / -1; }
+.benefit-form__textarea {
+  height: 120px;
+  padding: 16px 18px;
+  resize: vertical;
+  line-height: 1.5;
+}
+.benefit-form__consent {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.benefit-form__checkbox {
+  margin-top: 4px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--gold);
+  flex-shrink: 0;
+}
+.benefit-form__consent-text {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--primary-60);
+}
+.benefit-form__error {
+  grid-column: 1 / -1;
+  display: none;
+  color: #b3261e;
+  font-size: 13px;
+}
+.benefit-form .submit-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: 700;
+}
+.benefit-form .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.benefit-form .submit-btn:disabled:hover::after { width: 48px; border-radius: 50%; }
+.benefit-form .submit-btn:disabled:hover { color: var(--primary); border-color: transparent; }
+.form-success-message {
+  padding: 24px;
+  background: var(--cream);
+  border-radius: 14px;
+  margin-top: 24px;
+}
+.form-success-message h3 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  color: var(--primary);
+  margin: 0 0 8px;
+}
+.form-success-message p {
+  font-size: 14px;
+  color: var(--primary-60);
+  margin: 0;
+}
+
 /* Map */
 .contact-map {
   height: 380px;
@@ -1382,9 +1471,8 @@ a.footer-col-val:hover { color: var(--gold); }
 @media (max-width: 720px) {
   /* Layout & spacing */
   .section, .quiz, .faq { padding: 64px 24px; }
-  .hero-inner { padding: 0 24px; }
-  .nav { padding: 0 24px; margin: 0 -24px; height: 88px; }
-  .nav.is-sticky { padding: 0 24px; }
+  .hero-inner { padding: 88px 24px 0; }
+  .nav { padding: 0 24px; height: 88px; }
   .nav-logo img { height: 32px; }
   .contact { padding: 64px 24px; }
   .footer { padding: 56px 24px 28px; }
@@ -1399,9 +1487,9 @@ a.footer-col-val:hover { color: var(--gold); }
   .hero-bottom { flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 48px; }
   .hero-bottom-left { flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; }
   .hero-rating { gap: 12px; flex-wrap: wrap; font-size: 12px; }
-  .btn-pill { font-size: 14px; padding: 0 2px 0 24px; }
-  .btn-pill .btn-label { padding-right: 16px; }
-  .btn-pill .btn-icon { width: 48px; height: 48px; }
+  .btn-pill { font-size: 14px; padding: 4px 4px 4px 22px; gap: 12px; }
+  .btn-pill::after { width: 42px; height: 42px; right: 4px; }
+  .btn-pill .btn-icon { width: 42px; height: 42px; }
 
   /* Process */
   .process-image { height: 360px; border-radius: 14px 120px 14px 14px; }
@@ -1470,6 +1558,7 @@ a.footer-col-val:hover { color: var(--gold); }
   .contact-map { height: 320px; border-radius: 14px 120px 14px 14px; }
   .contact-info { grid-template-columns: 1fr; gap: 20px; }
   .form-row { grid-template-columns: 1fr; }
+  .benefit-form { grid-template-columns: 1fr; }
 
   /* FAQ */
   .faq-head { flex-direction: column; align-items: flex-start; gap: 16px; }
@@ -1487,9 +1576,8 @@ a.footer-col-val:hover { color: var(--gold); }
 }
 @media (max-width: 420px) {
   .section, .quiz, .faq { padding: 56px 20px; }
-  .hero-inner { padding: 0 20px; }
-  .nav { padding: 0 20px; margin: 0 -20px; }
-  .nav.is-sticky { padding: 0 20px; }
+  .hero-inner { padding: 88px 20px 0; }
+  .nav { padding: 0 20px; }
   .contact { padding: 56px 20px; }
   .footer { padding: 48px 20px 24px; }
   .hero-title-1, .hero-title-2 { font-size: clamp(36px, 10.5vw, 48px); }
@@ -1551,8 +1639,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="hero-content">
       <div class="hero-eyebrow eyebrow animate-up delay-1"><span class="rule"></span>MEDICAL AESTHETICS  ·  LONGMONT, CO  ·  EST. 2018</div>
-      <h1 class="hero-title-1 animate-up delay-2">Longmont's most advanced HydraFacial</h1>
-      <h2 class="hero-title-2 animate-up delay-3">and the team to match.</h2>
+      <h1 class="hero-title-1 animate-up delay-2">Longmont's most advanced HydraFacial
+        <span class="hero-title-2 animate-up delay-3">and the team to match.</span>
+      </h1>
     </div>
 
     <div class="hero-bottom">
@@ -1935,38 +2024,197 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="eyebrow reveal-up">GET IN TOUCH</div>
     <h2 class="reveal-up">Ready when your skin is.</h2>
     <div class="h-italic reveal-up">We will reply same business day.</div>
-    <form class="form reveal-up" onsubmit="event.preventDefault(); this.querySelector('.btn-label').textContent = 'Sent. We will be in touch.';">
-      <div class="form-row">
-        <div class="form-field">
-          <label for="firstName">First name</label>
-          <input id="firstName" name="firstName" type="text" placeholder="Maddison" autocomplete="given-name" required />
-        </div>
-        <div class="form-field">
-          <label for="lastName">Last name</label>
-          <input id="lastName" name="lastName" type="text" placeholder="Reyes Bravo" autocomplete="family-name" required />
-        </div>
+    <form class="staff-benefit-form benefit-form reveal-up">
+      <div class="benefit-form__field">
+        <label for="first_name" class="benefit-form__label">First name*</label>
+        <input
+          id="first_name"
+          name="first_name"
+          type="text"
+          placeholder="First Name"
+          required
+          class="benefit-form__input"
+        />
       </div>
-      <div class="form-row">
-        <div class="form-field">
-          <label for="phone">Phone</label>
-          <input id="phone" name="phone" type="tel" placeholder="+1 (303) 847 1928" autocomplete="tel" />
-        </div>
-        <div class="form-field">
-          <label for="email">Email address</label>
-          <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
-        </div>
+
+      <div class="benefit-form__field">
+        <label for="last_name" class="benefit-form__label">Last name*</label>
+        <input
+          id="last_name"
+          name="last_name"
+          type="text"
+          placeholder="Last Name"
+          required
+          class="benefit-form__input"
+        />
       </div>
-      <div class="form-field">
-        <label for="goal">What is your goal?</label>
-        <textarea id="goal" name="goal" placeholder="A glow before a wedding, calmer pores, softer fine lines..."></textarea>
+      <div class="benefit-form__field">
+        <label for="email" class="benefit-form__label">Email*</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Email"
+          required
+          class="benefit-form__input"
+        />
       </div>
-      <button type="submit" class="btn-pill">
-        <span class="btn-label">Submit Request</span>
+      <div class="benefit-form__field">
+        <label for="phone" class="benefit-form__label">Phone*</label>
+        <input
+          id="phone"
+          name="phone"
+          type="tel"
+          placeholder="Phone"
+          required
+          class="benefit-form__input"
+        />
+      </div>
+
+      <div class="benefit-form__field benefit-form__field--full">
+        <label for="message" class="benefit-form__label">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          placeholder="A glow before a wedding, calmer pores, softer fine lines..."
+          class="benefit-form__input benefit-form__textarea"
+        ></textarea>
+      </div>
+
+      <div class="benefit-form__consent">
+        <input
+          id="newsletter"
+          name="newsletter"
+          type="checkbox"
+          required
+          class="benefit-form__checkbox"
+        />
+        <label for="newsletter" class="benefit-form__consent-text">
+          <i>
+            By submitting this form, you agree to receive marketing text messages,
+            alerts, and notifications from  Institute for Ageless Living.
+            Message frequency may vary. Rates may be applied.
+            You can opt out at any time by replying STOP.
+          </i>
+        </label>
+      </div>
+
+      <div
+        id="form-error"
+        class="benefit-form__error"
+        role="alert"
+        aria-live="polite"
+      ></div>
+      <button type="submit" class="submit-btn btn btn--primary form-submit-button btn-pill" style="max-width:fit-content">
+        <span class="btn-label">Submit</span>
         <span class="btn-icon">
-          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21 23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M5 11v2h12.17l-5.59 5.59L13 20l8-8-8-8-1.42 1.41L17.17 11z"/></svg>
         </span>
       </button>
     </form>
+    <script>
+      (function () {
+        const forms = document.querySelectorAll('.staff-benefit-form');
+
+        forms.forEach((form) => {
+          const submitBtn = form.querySelector('.submit-btn');
+          const errEl = form.querySelector('#form-error');
+
+          function showError(msg) {
+            if (!errEl) return;
+            errEl.textContent = msg;
+            errEl.style.display = msg ? 'block' : 'none';
+          }
+
+          form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            showError('');
+            submitBtn.disabled = true;
+
+            const email = form.querySelector('#email').value?.trim() || '';
+            const phone = form.querySelector('#phone').value?.trim() || '';
+            const checkbox = form.querySelector('#newsletter')?.checked ? 'on' : '';
+            const first_name = form.querySelector('#first_name').value?.trim() || '';
+            const last_name = form.querySelector('#last_name').value?.trim() || '';
+            const message = form.querySelector('#message')?.value?.trim() || '';
+
+            const emailRe = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/;
+            if (!emailRe.test(email)) {
+              showError('Please enter a valid email address.');
+              submitBtn.disabled = false;
+              return;
+            }
+
+            const phoneRe = /^[0-9]{10}$/;
+            if (!phoneRe.test(phone)) {
+              showError('Please enter a 10-digit US phone number.');
+              submitBtn.disabled = false;
+              return;
+            }
+
+            const fd = new FormData();
+            fd.append('first_name', first_name);
+            fd.append('last_name', last_name);
+            fd.append('phone', `+1${phone}`);
+            fd.append('email', email);
+            fd.append('checkbox', checkbox);
+            fd.append('organization', '37060588-9822-4431-928b-b5ebad82dc6c');
+            fd.append('form', '');
+            fd.append('message', message);
+            fd.append('form_location', window.location.href);
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const trackingMap = {
+              gclid: 'google',
+              wbraid: 'google',
+              gbraid: 'google',
+              fbclid: 'meta',
+              ttclid: 'tiktok',
+            };
+            let trackingParam = '';
+            let adSource = 'other';
+            for (const [param, source] of Object.entries(trackingMap)) {
+              const val = urlParams.get(param);
+              if (val) {
+                trackingParam = val;
+                adSource = source;
+                break;
+              }
+            }
+            fd.append('tracking_param', trackingParam);
+            fd.append('ad_source', adSource);
+
+            try {
+              const res = await fetch(
+                'https://api.aevadigital.com/api/v1/contacts/add_contact_from_form/',
+                {
+                  method: 'POST',
+                  body: fd,
+                }
+              );
+
+              if (!res.ok) {
+                const txt = await res.text().catch(() => res.statusText);
+                throw new Error(txt || 'Server error');
+              }
+
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({ 'event': 'form-success' });
+
+              form.style.display = 'none';
+              const thankYou = document.createElement('div');
+              thankYou.className = 'form-success-message';
+              thankYou.innerHTML = '<h3>Thank You!</h3><p>Your consultation request has been received. We\'ll be in touch shortly.</p>';
+              form.parentNode.insertBefore(thankYou, form.nextSibling);
+            } catch (err) {
+              console.error(err);
+              showError('Submission failed — please try again.');
+              submitBtn.disabled = false;
+            }
+          });
+        });
+      })();
+    </script>
   </div>
 
   <div class="contact-r" id="visit">
